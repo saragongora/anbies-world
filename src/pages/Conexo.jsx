@@ -169,8 +169,8 @@ export default function Conexo() {
                           errada
                             ? { backgroundColor: "#e74444", color: "#fff" }
                             : selecionada
-                            ? { backgroundColor: "#5289b8", color: "#fff" }
-                            : { backgroundColor: "#e5e7eb", color: "#333" }
+                              ? { backgroundColor: "#5289b8", color: "#fff" }
+                              : { backgroundColor: "#e5e7eb", color: "#333" }
                         }
                         transition={{ duration: 0.5, ease: "easeOut" }}
                         className="flex items-center justify-center px-3 py-4 rounded-lg font-semibold text-center"
@@ -188,37 +188,32 @@ export default function Conexo() {
       {/* Modal de parabéns */}
 <AnimatePresence>
   {completou && (
-    <>
-      {/* Fundo escuro cobrindo toda a tela */}
-      <motion.div
-        className="fixed inset-0 bg-black/50 z-[60]"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
-        onClick={() => setCompletou(false)} // fecha ao clicar fora
-      />
-
+    <motion.div
+      className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      onClick={() => setCompletou(false)} // fecha ao clicar no fundo
+    >
       {/* Caixa centralizada */}
       <motion.div
-        className="fixed inset-0 z-[70] flex items-center justify-center"
+        className="bg-white rounded-xl shadow-lg px-10 py-12"
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
+        onClick={(e) => e.stopPropagation()} // impede fechar ao clicar dentro
       >
-        <div
-          className="bg-white rounded-xl shadow-lg px-10 py-12"
-          onClick={(e) => e.stopPropagation()} // impede fechar ao clicar na caixa
-        >
-          <p className="text-lg font-semibold text-[#5289b8] text-center">
-            Parabéns! Você completou em {tentativas} tentativas!
-          </p>
-        </div>
+        <p className="text-lg font-semibold text-[#5289b8] text-center">
+          Parabéns! Você completou em {tentativas} tentativas!
+        </p>
       </motion.div>
-    </>
+    </motion.div>
   )}
 </AnimatePresence>
+
+
 
 
       {/* Botão Voltar */}

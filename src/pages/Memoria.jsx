@@ -179,45 +179,39 @@ export default function Memoria() {
       </motion.button>
 
       {/* Modal de Parabéns */}
-      <AnimatePresence>
-        {completou && (
-          <>
-            {/* Backdrop suave */}
-            <motion.div
-              className="fixed inset-0 bg-black/50 z-40"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              onClick={() => setCompletou(false)}
-            />
+<AnimatePresence>
+  {completou && (
+    <motion.div
+      className="fixed inset-0 bg-black/50 z-40 flex items-center justify-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      onClick={() => setCompletou(false)} // fecha ao clicar fora
+    >
+      {/* Caixa de mensagem */}
+      <motion.div
+        className="bg-white rounded-xl shadow-lg px-10 py-12"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.8, opacity: 0 }}
+        transition={{ duration: 0.4 }}
+        onClick={(e) => e.stopPropagation()} // impede fechar se clicar dentro
+      >
+        <p className="text-lg font-semibold text-[#5289b8] text-center mb-6">
+          Parabéns! Você completou em {tentativas} tentativas!
+        </p>
+        <button
+          onClick={generateCards}
+          className="block mx-auto px-6 py-2 bg-[#5289b8] text-white rounded-lg hover:brightness-110 transition"
+        >
+          Jogar Novamente
+        </button>
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
 
-            {/* Caixa de mensagem */}
-            <motion.div
-              className="fixed inset-0 flex items-center justify-center z-50"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ duration: 0.4 }}
-            >
-              <div
-                className="bg-white rounded-xl shadow-lg px-10 py-12"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <p className="text-lg font-semibold text-[#5289b8] text-center mb-6">
-                  Parabéns! Você completou em {tentativas} tentativas!
-                </p>
-                <button
-                  onClick={generateCards}
-                  className="block mx-auto px-6 py-2 bg-[#5289b8] text-white rounded-lg hover:brightness-110 transition"
-                >
-                  Jogar Novamente
-                </button>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
     </div>
   );
 }
