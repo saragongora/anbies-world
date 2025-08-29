@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -92,7 +92,12 @@ export default function Conexo() {
       />
 
       {/* Container principal */}
-      <motion.div className="relative z-10 w-[900px] max-w-[95%] drop-shadow-2xl">
+      <motion.div
+        className="relative z-10 w-[900px] max-w-[95%] drop-shadow-2xl"
+        initial={{ opacity: 0, scale: 0.9, y: 30 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <img src={containerConexo} alt="container conexo" className="w-full" />
 
         {/* contador de tentativas */}
@@ -105,17 +110,29 @@ export default function Conexo() {
         {/* Conteúdo do jogo */}
         <div className="absolute top-[170px] left-1/2 -translate-x-1/2 w-[800px] max-w-[90%] flex flex-col items-center">
           {!nivelSelecionado && (
-            <div className="grid grid-cols-5 gap-x-12 gap-y-10 justify-items-center w-full px-8 translate-y-6">
+            <motion.div
+              className="grid grid-cols-5 gap-x-12 gap-y-10 justify-items-center w-full px-8 translate-y-6"
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {},
+                visible: { transition: { staggerChildren: 0.1 } },
+              }}
+            >
               {Array.from({ length: Object.keys(niveis).length }, (_, i) => (
-                <button
+                <motion.button
                   key={i}
                   onClick={() => setNivelSelecionado(i + 1)}
                   className="w-20 h-20 flex items-center justify-center bg-[#5289b8] text-white font-bold text-lg rounded-xl shadow-lg hover:scale-110 transition"
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
                 >
                   {i + 1}
-                </button>
+                </motion.button>
               ))}
-            </div>
+            </motion.div>
           )}
 
           {nivelSelecionado && (
@@ -163,29 +180,46 @@ export default function Conexo() {
                     );
                   })}
               </div>
-
-              {completou && (
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.8 }}
-                  className="fixed inset-0 flex items-center justify-center z-50"
-                  onClick={() => setCompletou(false)}
-                >
-                  <div
-                    className="bg-white rounded-xl shadow-lg px-10 py-12"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <p className="text-lg font-semibold text-[#5289b8] text-center">
-                      Parabéns! Você completou em {tentativas} tentativas!
-                    </p>
-                  </div>
-                </motion.div>
-              )}
             </div>
           )}
         </div>
       </motion.div>
+
+      {/* Modal de parabéns */}
+<AnimatePresence>
+  {completou && (
+    <>
+      {/* Fundo escuro cobrindo toda a tela */}
+      <motion.div
+        className="fixed inset-0 bg-black/50 z-[60]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+        onClick={() => setCompletou(false)} // fecha ao clicar fora
+      />
+
+      {/* Caixa centralizada */}
+      <motion.div
+        className="fixed inset-0 z-[70] flex items-center justify-center"
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+      >
+        <div
+          className="bg-white rounded-xl shadow-lg px-10 py-12"
+          onClick={(e) => e.stopPropagation()} // impede fechar ao clicar na caixa
+        >
+          <p className="text-lg font-semibold text-[#5289b8] text-center">
+            Parabéns! Você completou em {tentativas} tentativas!
+          </p>
+        </div>
+      </motion.div>
+    </>
+  )}
+</AnimatePresence>
+
 
       {/* Botão Voltar */}
       <motion.button
