@@ -6,15 +6,21 @@ import Feliz from "./pages/Feliz";
 import Memoria from "./pages/Memoria";
 import Parabens from "./pages/Parabens";
 
+import BackgroundMusic from "./BackgroundMusic"; // importa o componente
+
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/conexo" element={<Conexo />} />
-      <Route path="/cruzadas" element={<Cruzadas />} />
-      <Route path="/feliz" element={<Feliz />} />
-      <Route path="/memoria" element={<Memoria />} />
-      <Route path="/parabens" element={<Parabens />} />
-    </Routes>
+    <>
+      <BackgroundMusic />  {/* 🎶 Música de fundo sempre ativa */}
+      
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/conexo" element={<Conexo />} />
+        <Route path="/cruzadas" element={<Cruzadas />} />
+        <Route path="/feliz" element={<Feliz />} />
+        <Route path="/memoria" element={<Memoria />} />
+        <Route path="/parabens" element={<Parabens />} />
+      </Routes>
+    </>
   );
 }

@@ -199,7 +199,7 @@ export function LevelOne() {
             <h2 className="text-2xl font-bold text-[#5289b8] mb-4">
               Parabéns!
             </h2>
-            <p className="text-lg">Você completou o nível 1</p>
+            <p className="text-lg">Você completou o jogo</p>
           </motion.div>
         </div>
       )}
@@ -214,14 +214,10 @@ export function LevelOne() {
 ===================== */
 export default function Cruzadas() {
   const navigate = useNavigate();
-  const [nivelSelecionado, setNivelSelecionado] = useState(null);
+  const [nivelSelecionado, setNivelSelecionado] = useState(1); // 👉 já começa no nível 1
 
   const handleBack = () => {
-    if (nivelSelecionado) {
-      setNivelSelecionado(null); // volta para o menu de níveis
-    } else {
-      navigate("/"); // volta para home
-    }
+    navigate("/"); // agora sempre volta pra home
   };
 
   return (
@@ -243,38 +239,7 @@ export default function Cruzadas() {
         transition={{ duration: 1.5 }}
       />
 
-      {/* Menu de níveis */}
-      {!nivelSelecionado && (
-        <motion.div
-          className="relative z-20 flex flex-col items-center"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          <motion.img
-            src={containerFeliz}
-            alt="Container níveis"
-            className="relative z-10 w-[900px] max-w-[95%] drop-shadow-2xl"
-          />
-
-          <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
-            <div className="flex flex-wrap gap-4 justify-center">
-              {[1, 2, 3, 4, 5].map((n) => (
-                <motion.button
-                  key={n}
-                  onClick={() => setNivelSelecionado(n)}
-                  className="px-6 py-3 bg-[#5289b8] text-white font-semibold rounded-2xl shadow-lg hover:brightness-110 transition"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Nível {n}
-                </motion.button>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      )}
-
+      {/* Jogo - Nível 1 direto */}
       {nivelSelecionado === 1 && <LevelOne />}
 
       {/* Botão voltar */}
