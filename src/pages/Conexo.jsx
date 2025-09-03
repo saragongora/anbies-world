@@ -18,7 +18,6 @@ export default function Conexo() {
   const [tentativas, setTentativas] = useState(0);
   const [completou, setCompletou] = useState(false);
 
-  // embaralhar quando escolher nível
   useEffect(() => {
     if (nivelSelecionado) {
       setPalavrasNivel([...niveis[nivelSelecionado]].sort(() => Math.random() - 0.5));
@@ -186,35 +185,32 @@ export default function Conexo() {
       </motion.div>
 
       {/* Modal de parabéns */}
-<AnimatePresence>
-  {completou && (
-    <motion.div
-      className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
-      onClick={() => setCompletou(false)} // fecha ao clicar no fundo
-    >
-      {/* Caixa centralizada */}
-      <motion.div
-        className="bg-white rounded-xl shadow-lg px-10 py-12"
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-        onClick={(e) => e.stopPropagation()} // impede fechar ao clicar dentro
-      >
-        <p className="text-lg font-semibold text-[#5289b8] text-center">
-          Parabéns! Você completou em {tentativas} tentativas!
-        </p>
-      </motion.div>
-    </motion.div>
-  )}
-</AnimatePresence>
-
-
-
+      <AnimatePresence>
+        {completou && (
+          <motion.div
+            className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={() => setCompletou(false)} 
+          >
+            {/* Caixa centralizada */}
+            <motion.div
+              className="bg-white rounded-xl shadow-lg px-10 py-12"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              onClick={(e) => e.stopPropagation()} 
+            >
+              <p className="text-lg font-semibold text-[#5289b8] text-center">
+                Parabéns! Você completou em {tentativas} tentativas!
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Botão Voltar */}
       <motion.button

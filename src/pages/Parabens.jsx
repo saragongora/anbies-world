@@ -31,7 +31,7 @@ import nome6 from "../assets/nome6.svg";
 import nome7 from "../assets/nome7.svg";
 import nome8 from "../assets/nome8.svg";
 
-// áudios
+
 import audio1 from "../assets/audio1.mp3";
 import audio2 from "../assets/audio2.mp3";
 import audio3 from "../assets/audio3.mp3";
@@ -41,7 +41,7 @@ import audio6 from "../assets/audio6.mp3";
 import audio7 from "../assets/audio7.mp3";
 import audio8 from "../assets/audio8.mp3";
 
-// 🎶 controle da música de fundo
+
 import { useMusic } from "../MusicContext";
 
 const itens = [
@@ -63,7 +63,6 @@ export default function Parabens() {
 
   const { pauseMusic, resumeMusic } = useMusic();
 
-  // 🔇 pausa música de fundo ao entrar e volta ao sair
   useEffect(() => {
     pauseMusic();
     return () => resumeMusic();

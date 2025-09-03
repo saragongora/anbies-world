@@ -19,7 +19,7 @@
   border-radius: 12px;
 }
 .card-front {
-  background: url("/assets/card-back.svg") center/cover no-repeat; /* 👈 verso */
+  background: url("/assets/card-back.svg") center/cover no-repeat; 
 }
 .card-back {
   transform: rotateY(180deg);

@@ -12,7 +12,7 @@ export function MusicProvider({ children }) {
       audio.volume = 0.3;
     }
 
-    // desbloqueia áudio no primeiro clique
+  
     const enableAudio = () => {
       if (audio) {
         audio.muted = false;

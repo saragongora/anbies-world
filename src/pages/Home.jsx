@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom"; // 👈 importa o Link
+import { Link } from "react-router-dom";
 
 import clouds from "../assets/nuvens.svg";
 import container from "../assets/container_principal.svg";
 import background from "../assets/fundo.mp4";
+import ana from "../assets/ana.svg";
 
 import setaAnterior from "../assets/seta_anterior.png";
 import setaProximo from "../assets/seta_proximo.png";
@@ -21,11 +22,9 @@ import titulo3 from "../assets/titulo3.svg";
 import titulo4 from "../assets/titulo4.svg";
 import titulo5 from "../assets/titulo5.svg";
 
-
-// Lista de páginas (cada item com imagem, título e link)
 const paginas = [
   { img: img1, titulo: titulo1, link: "/feliz" },
-  { img: img2, titulo: titulo2, link: "/conexo" }, 
+  { img: img2, titulo: titulo2, link: "/conexo" },
   { img: img3, titulo: titulo3, link: "/cruzadas" },
   { img: img5, titulo: titulo5, link: "/memoria" },
   { img: img4, titulo: titulo4, link: "/parabens" },
@@ -33,13 +32,14 @@ const paginas = [
 
 export default function Home() {
   const [indice, setIndice] = useState(0);
+  const [meninaVisivel, setMeninaVisivel] = useState(false);
 
   const proximo = () => setIndice((prev) => (prev + 1) % paginas.length);
-  const anterior = () => setIndice((prev) => (prev - 1 + paginas.length) % paginas.length);
+  const anterior = () =>
+    setIndice((prev) => (prev - 1 + paginas.length) % paginas.length);
 
   return (
     <div className="relative w-full h-screen overflow-hidden flex items-center justify-center">
-
       {/* Fundo em vídeo */}
       <video
         src={background}
@@ -49,36 +49,61 @@ export default function Home() {
         className="absolute top-0 left-0 w-full h-full object-cover"
       />
 
-      {/* Nuvens */}
+      {/* Nuvem de fundo */}
       <motion.img
         src={clouds}
         alt="clouds"
-        className="absolute bottom-0 w-full"
+        className="absolute bottom-0 w-full z-10"
+        initial={{ y: 200 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 1.5 }}
+      />
+
+      {/* imagem ana */}
+      <motion.img
+        src={ana}
+        alt="aninha"
+        className="absolute w-40 cursor-pointer z-20"
+        style={{ bottom: "110px", right: "15rem" }}
+        initial={{ opacity: 0, y: 280 }}
+        animate={{
+          opacity: 1,
+          y: meninaVisivel ? 10 : 100
+        }}
+        transition={{
+          opacity: { delay: 1.5, duration: 0.3 },
+          y: { duration: 0.8, type: "spring" }
+        }}
+        onClick={() => setMeninaVisivel(!meninaVisivel)}
+      />
+
+
+      {/* Máscara */}
+      <motion.img
+        src={clouds}
+        alt="nuvem-mascara"
+        className="absolute bottom-0 w-full pointer-events-none z-30"
         initial={{ y: 200 }}
         animate={{ y: 0 }}
         transition={{ duration: 1.5 }}
       />
 
       {/* Container principal */}
-      <div className="relative z-10 w-[400px] max-w-[90%]">
-        {/* Fundo do caderno + Conteúdo juntos na mesma animação */}
+      <div className="relative z-40 w-[400px] max-w-[90%]">
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1 }}
           className="relative"
         >
-          {/* Fundo do caderno */}
           <img
             src={container}
             alt="container"
             className="w-full drop-shadow-2xl"
           />
 
-          {/* Conteúdo sobre o caderno */}
           <div className="absolute inset-0 flex flex-col items-center justify-start gap-6 mt-[150px]">
             <div className="flex items-center justify-between w-full px-8">
-              {/* seta esquerda */}
               <button onClick={anterior}>
                 <img
                   src={setaAnterior}
@@ -87,7 +112,6 @@ export default function Home() {
                 />
               </button>
 
-              {/* imagem central */}
               <Link to={paginas[indice].link}>
                 <img
                   key={paginas[indice].img}
@@ -97,7 +121,6 @@ export default function Home() {
                 />
               </Link>
 
-              {/* seta direita */}
               <button onClick={proximo}>
                 <img
                   src={setaProximo}
@@ -107,7 +130,6 @@ export default function Home() {
               </button>
             </div>
 
-            {/* título embaixo */}
             <Link to={paginas[indice].link}>
               <img
                 key={paginas[indice].titulo}

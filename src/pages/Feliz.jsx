@@ -30,16 +30,44 @@ export default function Feliz() {
       />
 
       {/* Container principal bem maior */}
-      <motion.img
-        src={containerFeliz}
-        alt="container feliz"
-        className="relative z-10 w-[900px] max-w-[95%] drop-shadow-2xl"
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1 }}
-      />
+      <div className="relative z-10 w-[900px] max-w-[95%] drop-shadow-2xl">
+        {/* imagem principal */}
+        <motion.img
+          src={containerFeliz}
+          alt="container feliz"
+          className="w-full"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1 }}
+        />
 
-       {/* Botão Voltar com animação */}
+        {/*  link 1  */}
+        <a
+          href="https://x.com/hyunjae05/status/1745024913449390559"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute top-[70%] left-[5%] w-[120px] h-[120px] cursor-pointer"
+        />
+
+        {/* link 2  */}
+        <a
+          href="https://x.com/hyunjae05/status/1745024913449390559"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute top-[10%] right-[10%] w-[100px] h-[100px] cursor-pointer"
+        />
+
+        {/* link 3  */}
+        <a
+          href="https://x.com/hyunjae05/status/1745024913449390559"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute bottom-[10%] right-[15%] w-[140px] h-[100px] cursor-pointer"
+        />
+      </div>
+
+
+      {/* Botão Voltar*/}
       <motion.button
         onClick={() => navigate("/")}
         className="absolute bottom-4 left-4 z-20 px-4 py-2 bg-[#5289b8] text-white font-semibold rounded-2xl shadow-lg hover:brightness-110 transition"

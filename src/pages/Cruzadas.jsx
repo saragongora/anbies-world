@@ -7,9 +7,6 @@ import background from "../assets/fundo.mp4";
 import containerNivel1 from "../assets/cruzadas_nivel1.svg";
 import containerFeliz from "../assets/container_palavras.svg";
 
-/* =====================
-  Nivel 1
-===================== */
 export function LevelOne() {
   const GRID_ROWS = 6;
   const GRID_COLS = 9;
@@ -59,7 +56,6 @@ export function LevelOne() {
       return copy;
     });
 
-    // Focar no próximo campo automaticamente
     if (ch && idx < GRID_ROWS * GRID_COLS - 1) {
       setTimeout(() => {
         focusNext(idx, "right");
@@ -107,7 +103,6 @@ export function LevelOne() {
     }
   };
 
-  // 👉 Checagem automática sempre que letras mudam
   useEffect(() => {
     let allCorrect = true;
 
@@ -127,7 +122,7 @@ export function LevelOne() {
 
   return (
     <div className="relative z-20 flex flex-col items-center gap-4">
-      {/* Container Feliz */}
+      
       <div className="relative w-[900px] max-w-[95vw] mx-auto">
         <img
           src={containerFeliz}
@@ -135,7 +130,7 @@ export function LevelOne() {
           className="w-full h-auto drop-shadow-2xl"
         />
 
-        {/* Área do jogo */}
+        
         <div className="absolute inset-0 flex items-center justify-center p-8">
           <div className="relative w-[800px] max-w-full translate-y-12">
             <img
@@ -144,7 +139,7 @@ export function LevelOne() {
               className="w-full h-auto select-none pointer-events-none drop-shadow-xl rounded-lg"
             />
 
-            {/* Overlay grid */}
+            
             <div className="absolute top-0 left-0 w-full h-full">
               <div
                 className="grid w-full h-full"
@@ -187,14 +182,14 @@ export function LevelOne() {
       {success && (
         <div
           className="fixed inset-0 flex items-center justify-center bg-black/60 z-50"
-          onClick={() => setSuccess(false)} // 👉 clicou fora → fecha modal
+          onClick={() => setSuccess(false)} 
         >
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.3 }}
             className="bg-white rounded-2xl p-8 shadow-2xl text-center"
-            onClick={(e) => e.stopPropagation()} // 👉 impede fechar ao clicar dentro
+            onClick={(e) => e.stopPropagation()} 
           >
             <h2 className="text-2xl font-bold text-[#5289b8] mb-4">
               Parabéns!
@@ -209,15 +204,12 @@ export function LevelOne() {
 }
 
 
-/* =====================
-   Componente principal
-===================== */
 export default function Cruzadas() {
   const navigate = useNavigate();
-  const [nivelSelecionado, setNivelSelecionado] = useState(1); // 👉 já começa no nível 1
+  const [nivelSelecionado, setNivelSelecionado] = useState(1); 
 
   const handleBack = () => {
-    navigate("/"); // agora sempre volta pra home
+    navigate("/");
   };
 
   return (
@@ -239,10 +231,10 @@ export default function Cruzadas() {
         transition={{ duration: 1.5 }}
       />
 
-      {/* Jogo - Nível 1 direto */}
+     
       {nivelSelecionado === 1 && <LevelOne />}
 
-      {/* Botão voltar */}
+   
       <div className="absolute bottom-4 left-4 flex gap-4 z-30">
         <motion.button
           onClick={handleBack}
